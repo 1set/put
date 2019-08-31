@@ -1,5 +1,6 @@
 import pytest
 from put.fileutils import is_file_exist, is_dir_exist, make_dir, save_json, load_json
+from datetime import datetime
 
 
 def test_is_file_exist():
@@ -21,7 +22,6 @@ def test_make_dir():
 
 
 def test_save_json():
-    from datetime import datetime
     sample = {
         "time": datetime.now(),
         "integer": 123,
@@ -37,5 +37,6 @@ def test_save_json():
 def test_load_json():
     sample = load_json("tests/resources/sample.json")
     assert sample is not None
+    assert isinstance(sample['time'], datetime)
     with pytest.raises(FileNotFoundError):
         assert load_json("__read_a_file_not_exists__")
