@@ -16,7 +16,7 @@ def is_dir_exist(file_path):
     return file_path_info.is_dir()
 
 
-def make_directory(*args):
+def make_dir(*args):
     """Create a directory with named path if not exists"""
     path = os.path.join(*args)
     try:
@@ -34,17 +34,25 @@ def _json_serial(obj):
     raise TypeError("Type %s not serializable" % type(obj))
 
 
-def save_json(file_path, data):
+def save_json(file_path, data, pretty_print=True):
     """Serialize data and save as JSON file"""
     with open(file_path, "w", encoding="utf8") as outfile:
-        dump(
-            data,
-            outfile,
-            ensure_ascii=False,
-            sort_keys=True,
-            indent=4,
-            default=_json_serial,
-        )
+        if pretty_print:
+            dump(
+                data,
+                outfile,
+                ensure_ascii=False,
+                sort_keys=True,
+                indent=4,
+                default=_json_serial,
+            )
+        else:
+            dump(
+                data,
+                outfile,
+                ensure_ascii=False,
+                default=_json_serial,
+            )
 
 
 def load_json(file_path):

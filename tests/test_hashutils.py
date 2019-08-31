@@ -14,10 +14,10 @@ def test_md5str():
 def test_md5sum():
     assert md5sum("LICENSE") == "ec91219365c86f4951b8a3a2c1ff3ffe"
     with pytest.raises(FileNotFoundError):
-        assert md5sum("__read_a_file_no_exists__")
+        assert md5sum("__read_a_file_not_exists__")
 
 
 def test_md5base64():
     assert md5base64("LICENSE") == r"7JEhk2XIb0lRuKOiwf8//g=="
     with pytest.raises(FileNotFoundError):
-        assert md5sum("__read_a_file_no_exists__")
+        assert md5sum("__read_a_file_not_exists__")

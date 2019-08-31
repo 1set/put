@@ -12,5 +12,3 @@ finally:
 
 
 from .hashutils import md5str, md5sum, md5base64
-
-# __all__ = ["fib"]
