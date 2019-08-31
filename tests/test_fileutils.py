@@ -64,11 +64,11 @@ def test_get_file_info():
 def test_scan_dir():
     files1 = scan_dir("tests", ["json"])
     assert len(files1) >= 1
-    assert len([f for f in files1 if f['name'].endswith('json')]) == len(files1)
+    assert len([f for f in files1 if f["name"].endswith("json")]) == len(files1)
     files2 = scan_dir("tests", [".json"])
     assert len(files2) >= 1
-    assert len([f for f in files2 if f['name'].endswith('.json')]) == len(files2)
+    assert len([f for f in files2 if f["name"].endswith(".json")]) == len(files2)
     files3 = scan_dir("tests", ["py"], True)
     assert len(files3) >= 1
-    assert len([f for f in files3 if f['name'].endswith('py')]) == len(files3)
-    assert len([f for f in files3 if f['hash'] is not None]) == len(files3)
+    assert len([f for f in files3 if f["name"].endswith("py")]) == len(files3)
+    assert len([f for f in files3 if f["hash"] is not None]) == len(files3)
