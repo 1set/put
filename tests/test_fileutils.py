@@ -42,6 +42,8 @@ def test_load_json():
     assert sample is not None
     assert sample["integer"] == 123
     assert sample["bool"] == True
+    with pytest.raises(UnicodeDecodeError):
+        assert load_json("tests/resources/sample.zip")
     with pytest.raises(FileNotFoundError):
         assert load_json("__read_a_file_not_exists__")
 
