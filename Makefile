@@ -11,11 +11,11 @@ default:
 devinstall:
 	$(PIP) install -e .
 devuninstall:
-	$(PIP) uninstall $(NAME)
+	$(PIP) uninstall -y $(NAME)
+devcheck: devinstall
+	$(PYTHON) -c "import $(NAME); print($(NAME).__version__); print($(NAME).__dir__())"
 version:
 	$(PYTHON) setup.py --version
-check:
-	$(PYTHON) -c "import $(NAME); print($(NAME).__version__); print($(NAME).__dir__())"
 build:
 	@echo "WIP
 	@exit 3
