@@ -29,21 +29,28 @@ def _json_serial(obj):
 
 def save_json(file_path, data):
     """Serialize data and save as JSON file"""
-    with open(file_path, 'w', encoding='utf8') as outfile:
-        dump(data, outfile, ensure_ascii=False, sort_keys=True, indent=4, default=_json_serial)
+    with open(file_path, "w", encoding="utf8") as outfile:
+        dump(
+            data,
+            outfile,
+            ensure_ascii=False,
+            sort_keys=True,
+            indent=4,
+            default=_json_serial,
+        )
 
 
 def load_json(file_path):
     """Load JSON file and deserialize"""
-    with open(file_path, 'r') as infile:
+    with open(file_path, "r") as infile:
         data = load(infile)
         return data
 
 
 def _compute_md5_hash(file_name):
-    with open(file_name, mode='rb') as f:
+    with open(file_name, mode="rb") as f:
         d = hashlib.md5()
-        for buf in iter(partial(f.read, 4096), b''):
+        for buf in iter(partial(f.read, 4096), b""):
             d.update(buf)
         return d
 
@@ -53,11 +60,13 @@ def md5sum(file_name):
 
 
 def md5base64(file_name):
-    return b64encode(_compute_md5_hash(file_name).digest()).decode('utf-8')
+    return b64encode(_compute_md5_hash(file_name).digest()).decode("utf-8")
 
 
 def md5str(content):
-    return b32encode(hashlib.md5(str.encode(content)).digest()).decode('utf-8').rstrip("=")
+    return (
+        b32encode(hashlib.md5(str.encode(content)).digest()).decode("utf-8").rstrip("=")
+    )
 
 
 def _is_file_type_match(path_str, file_ext):
@@ -81,18 +90,22 @@ def get_file_info(path_str, calc_hash=False):
         "size": stat_size,
         "hash": md5sum(path_str) if calc_hash else None,
         "bmd5": md5base64(path_str) if calc_hash else None,
-        "time": file_date
+        "time": file_date,
     }
 
 
 def scan_directory(source_directory, file_ext_names, calc_hash=False):
-    file_list = [f for f in iglob(source_directory + '/**/*', recursive=True) if os.path.isfile(f) and _is_file_type_match(f, file_ext_names)]
+    file_list = [
+        f
+        for f in iglob(source_directory + "/**/*", recursive=True)
+        if os.path.isfile(f) and _is_file_type_match(f, file_ext_names)
+    ]
     stat_list = []
     for file in file_list:
         file_info = get_file_info(file, calc_hash)
         if file_info:
             stat_list.append(file_info)
-    stat_list.sort(key=lambda p:p["name"])
+    stat_list.sort(key=lambda p: p["name"])
     return stat_list
 
 

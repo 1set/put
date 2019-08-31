@@ -11,7 +11,7 @@ default:
 	@echo "build target is required"
 	@exit 2
 setupenv:
-	$(PIP) install --upgrade setuptools wheel twine tqdm pkginfo pytest
+	$(PIP) install --upgrade setuptools wheel twine tqdm pkginfo flake8 yapf pytest
 devinstall:
 	$(PIP) install -e .
 sandboxinstall:
