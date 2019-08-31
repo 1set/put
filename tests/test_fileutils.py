@@ -1,6 +1,13 @@
 import pytest
-from put.fileutils import is_file_exist, is_dir_exist, make_dir, save_json, load_json
-from datetime import datetime
+from put.fileutils import (
+    is_file_exist,
+    is_dir_exist,
+    make_dir,
+    save_json,
+    load_json,
+    get_file_info,
+)
+from datetime import date, datetime
 
 
 def test_is_file_exist():
@@ -22,12 +29,7 @@ def test_make_dir():
 
 
 def test_save_json():
-    sample = {
-        "time": datetime.now(),
-        "integer": 123,
-        "float": 456.789,
-        "bool": True
-    }
+    sample = {"time": datetime.now(), "integer": 123, "float": 456.789, "bool": True}
     assert save_json("/tmp/py-put-test-file.json", sample) == None
     assert save_json("/tmp/py-put-test-file2.json", sample, False) == None
     with pytest.raises(IsADirectoryError):
@@ -37,6 +39,22 @@ def test_save_json():
 def test_load_json():
     sample = load_json("tests/resources/sample.json")
     assert sample is not None
-    assert isinstance(sample['time'], datetime)
+    assert sample["integer"] == 123
+    assert sample["bool"] == True
     with pytest.raises(FileNotFoundError):
         assert load_json("__read_a_file_not_exists__")
+
+
+def test_get_file_info():
+    info1 = get_file_info("tests/resources/sample.json")
+    assert info1 is not None
+    assert info1["name"] == "sample.json"
+    assert info1["size"] == 104
+    assert info1["hash"] is None
+    assert info1["bmd5"] is None
+    info2 = get_file_info("tests/resources/sample.json", True)
+    assert info2 is not None
+    assert info2["name"] == "sample.json"
+    assert info2["size"] == 104
+    assert info2["hash"] == "5983c06a82baabe47239ca1502291f54"
+    assert info2["bmd5"] == "WYPAaoK6q+RyOcoVAikfVA=="

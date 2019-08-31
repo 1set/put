@@ -2,6 +2,7 @@ from datetime import date, datetime
 from glob import iglob
 from json import dump, load
 from pathlib import Path
+from .hashutils import md5sum, md5base64
 import errno
 import os
 
@@ -47,12 +48,7 @@ def save_json(file_path, data, pretty_print=True):
                 default=_json_serial,
             )
         else:
-            dump(
-                data,
-                outfile,
-                ensure_ascii=False,
-                default=_json_serial,
-            )
+            dump(data, outfile, ensure_ascii=False, default=_json_serial)
 
 
 def load_json(file_path):
@@ -60,14 +56,6 @@ def load_json(file_path):
     with open(file_path, "r") as infile:
         data = load(infile)
         return data
-
-
-def _is_file_type_match(path_str, file_ext):
-    path_str = path_str.lower()
-    for ext in file_ext:
-        if path_str.endswith(ext):
-            return True
-    return False
 
 
 def get_file_info(path_str, calc_hash=False):
@@ -85,6 +73,14 @@ def get_file_info(path_str, calc_hash=False):
         "bmd5": md5base64(path_str) if calc_hash else None,
         "time": file_date,
     }
+
+
+def _is_file_type_match(path_str, file_ext):
+    path_str = path_str.lower()
+    for ext in file_ext:
+        if path_str.endswith(ext):
+            return True
+    return False
 
 
 def scan_directory(source_directory, file_ext_names, calc_hash=False):
