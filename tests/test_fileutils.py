@@ -57,7 +57,6 @@ def test_load_lines():
         assert load_lines("tests/resources/sample.zip")
 
 
-
 def test_get_file_info():
     info1 = get_file_info("tests/resources/sample.json")
     assert info1 is not None
