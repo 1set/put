@@ -8,11 +8,13 @@ import os
 
 
 def is_file_exist(file_path):
+    """Whether the file exists"""
     file_path_info = Path(file_path)
     return file_path_info.is_file()
 
 
 def is_dir_exist(file_path):
+    """Whether the directory exists"""
     file_path_info = Path(file_path)
     return file_path_info.is_dir()
 
@@ -72,6 +74,7 @@ def load_lines(file_path):
 
 
 def get_file_info(path_str, calc_hash=False):
+    """Retrieve file info and calculate file hash if required"""
     stat_info = os.stat(path_str)
     stat_size = stat_info.st_size
     file_date = datetime.utcfromtimestamp(stat_info.st_mtime)
@@ -98,6 +101,7 @@ def _is_file_type_match(path_str, file_ext):
 
 
 def scan_dir(src_dir, file_ext_names, calc_hash=False):
+    """Walk through the directory recursively and retrieve all the file info"""
     file_list = [
         f for f in iglob(src_dir + "/**/*", recursive=True)
         if os.path.isfile(f) and _is_file_type_match(f, file_ext_names)
