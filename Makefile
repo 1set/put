@@ -12,10 +12,15 @@ default:
 	@exit 2
 devinstall:
 	$(PIP) install -e .
-devuninstall:
+sandboxinstall:
+	$(PIP) install -i https://test.pypi.org/simple/ $(NAME)
+prodinstall:
+	$(PIP) install $(NAME)
+uninstall:
 	$(PIP) uninstall -y $(NAME)
-devcheck: devinstall
+check:
 	$(PYTHON) -c "import $(NAME); print($(NAME).__version__); print($(NAME).__dir__())"
+devcheck: devinstall check
 version:
 	$(PYTHON) setup.py --version
 tag:
@@ -29,8 +34,8 @@ build: clean
 	$(PYTHON) setup.py sdist bdist_wheel
 test:
 	$(PYTHON) setup.py test
-pushsanbox:
+pushsandbox:
 	$(PYTHON) -m twine upload dist/* -r testpypi
 pushprod:
-	@if [ "$(shell git rev-parse --abbrev-ref HEAD)" != "master" ]; then echo "must be on the master branch"; exit 4; fi
+	@if [ "$(shell git rev-parse --abbrev-ref HEAD)" != "master" ]; then echo "must be on the master branch"; exit 3; fi
 	$(PYTHON) -m twine upload dist/*
