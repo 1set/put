@@ -19,7 +19,9 @@ version:
 build:
 	@echo "WIP
 	@exit 3
-pushtest:
+test:
+	$(PYTHON) setup.py test
+pushsanbox:
 	@echo "WIP
 	@exit 3
 pushprod:
