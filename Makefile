@@ -10,6 +10,8 @@ GIT=git
 default:
 	@echo "build target is required"
 	@exit 2
+setupenv:
+	$(PIP) install --upgrade setuptools wheel twine tqdm pkginfo pytest
 devinstall:
 	$(PIP) install -e .
 sandboxinstall:
