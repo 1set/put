@@ -53,9 +53,12 @@ def save_json(file_path, data, pretty_print=True):
 
 def load_json(file_path):
     """Load JSON file and deserialize"""
-    with open(file_path, "r") as infile:
-        data = load(infile)
-        return data
+    if is_file_exist(file_path):
+        with open(file_path, "r") as infile:
+            data = load(infile)
+            return data
+    else:
+        return None
 
 
 def get_file_info(path_str, calc_hash=False):
