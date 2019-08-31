@@ -99,8 +99,7 @@ def _is_file_type_match(path_str, file_ext):
 
 def scan_dir(src_dir, file_ext_names, calc_hash=False):
     file_list = [
-        f
-        for f in iglob(src_dir + "/**/*", recursive=True)
+        f for f in iglob(src_dir + "/**/*", recursive=True)
         if os.path.isfile(f) and _is_file_type_match(f, file_ext_names)
     ]
     stat_list = []
