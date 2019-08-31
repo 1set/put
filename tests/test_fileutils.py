@@ -6,6 +6,7 @@ from put.fileutils import (
     save_json,
     load_json,
     get_file_info,
+    scan_dir,
 )
 from datetime import date, datetime
 
@@ -58,3 +59,16 @@ def test_get_file_info():
     assert info2["size"] == 104
     assert info2["hash"] == "5983c06a82baabe47239ca1502291f54"
     assert info2["bmd5"] == "WYPAaoK6q+RyOcoVAikfVA=="
+
+
+def test_scan_dir():
+    files1 = scan_dir("tests", ["json"])
+    assert len(files1) >= 1
+    assert len([f for f in files1 if f['name'].endswith('json')]) == len(files1)
+    files2 = scan_dir("tests", [".json"])
+    assert len(files2) >= 1
+    assert len([f for f in files2 if f['name'].endswith('.json')]) == len(files2)
+    files3 = scan_dir("tests", ["py"], True)
+    assert len(files3) >= 1
+    assert len([f for f in files3 if f['name'].endswith('py')]) == len(files3)
+    assert len([f for f in files3 if f['hash'] is not None]) == len(files3)
