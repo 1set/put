@@ -23,6 +23,9 @@ uninstall:
 check:
 	$(PYTHON) -c "import $(NAME); print($(NAME).__version__); print($(NAME).__dir__())"
 devcheck: devinstall check
+lint:
+	$(PYTHON) -m flake8 --ignore=E501,F401 src
+	$(PYTHON) -m flake8 --ignore=E501,F401 tests
 version:
 	$(PYTHON) setup.py --version
 tag:
