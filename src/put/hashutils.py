@@ -1,4 +1,4 @@
-from base64 import b64encode, b32encode
+from base64 import b64encode
 from functools import partial
 import hashlib
 
@@ -20,6 +20,4 @@ def md5base64(file_name):
 
 
 def md5str(content):
-    return (
-        b32encode(hashlib.md5(str.encode(content)).digest()).decode("utf-8").rstrip("=")
-    )
+    return hashlib.md5(str.encode(content)).hexdigest()
