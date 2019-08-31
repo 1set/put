@@ -92,6 +92,8 @@ def get_file_info(path_str, calc_hash=False):
 
 
 def _is_file_type_match(path_str, file_ext):
+    if file_ext is None:
+        return True
     path_str = path_str.lower()
     for ext in file_ext:
         ext = "." + ext.lstrip(".")
@@ -100,7 +102,7 @@ def _is_file_type_match(path_str, file_ext):
     return False
 
 
-def scan_dir(src_dir, file_ext_names, calc_hash=False):
+def scan_dir(src_dir, file_ext_names=None, calc_hash=False):
     """Walk through the directory recursively and retrieve all the file info"""
     file_list = [
         f for f in iglob(src_dir + "/**/*", recursive=True)

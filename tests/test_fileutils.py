@@ -83,3 +83,7 @@ def test_scan_dir():
     assert len(files3) >= 1
     assert len([f for f in files3 if f["name"].endswith("py")]) == len(files3)
     assert len([f for f in files3 if f["hash"] is not None]) == len(files3)
+    files4 = scan_dir("tests")
+    assert len(files4) >= 1
+    files5 = scan_dir("tests", [])
+    assert len(files5) == 0
