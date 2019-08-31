@@ -18,6 +18,7 @@ from .fileutils import (
     make_dir,
     save_json,
     load_json,
+    load_lines,
     get_file_info,
     scan_dir,
 )

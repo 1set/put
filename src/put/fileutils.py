@@ -61,6 +61,16 @@ def load_json(file_path):
         return None
 
 
+def load_lines(file_path):
+    """Load all lines from text file"""
+    if is_file_exist(file_path):
+        with open(file_path, "r") as infile:
+            data = list(map(lambda l: l.rstrip(), infile.readlines()))
+            return data
+    else:
+        return None
+
+
 def get_file_info(path_str, calc_hash=False):
     stat_info = os.stat(path_str)
     stat_size = stat_info.st_size

@@ -5,6 +5,7 @@ from put.fileutils import (
     make_dir,
     save_json,
     load_json,
+    load_lines,
     get_file_info,
     scan_dir,
 )
@@ -45,6 +46,16 @@ def test_load_json():
     assert load_json("__read_a_file_not_exists__") is None
     with pytest.raises(UnicodeDecodeError):
         assert load_json("tests/resources/sample.zip")
+
+
+def test_load_lines():
+    sample = load_lines("tests/resources/sample.json")
+    assert sample is not None
+    assert len(sample) == 6
+    assert load_lines("__read_a_file_not_exists__") is None
+    with pytest.raises(UnicodeDecodeError):
+        assert load_lines("tests/resources/sample.zip")
+
 
 
 def test_get_file_info():
