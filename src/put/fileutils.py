@@ -1,12 +1,19 @@
-from base64 import b64encode, b32encode
 from datetime import date, datetime
 from glob import iglob
-from functools import partial
 from json import dump, load
 from pathlib import Path
 import errno
-import hashlib
 import os
+
+
+def is_file_exist(file_path):
+    file_path_info = Path(file_path)
+    return file_path_info.is_file()
+
+
+def is_dir_exist(file_path):
+    file_path_info = Path(file_path)
+    return file_path_info.is_dir()
 
 
 def make_directory(*args):
@@ -47,28 +54,6 @@ def load_json(file_path):
         return data
 
 
-def _compute_md5_hash(file_name):
-    with open(file_name, mode="rb") as f:
-        d = hashlib.md5()
-        for buf in iter(partial(f.read, 4096), b""):
-            d.update(buf)
-        return d
-
-
-def md5sum(file_name):
-    return _compute_md5_hash(file_name).hexdigest()
-
-
-def md5base64(file_name):
-    return b64encode(_compute_md5_hash(file_name).digest()).decode("utf-8")
-
-
-def md5str(content):
-    return (
-        b32encode(hashlib.md5(str.encode(content)).digest()).decode("utf-8").rstrip("=")
-    )
-
-
 def _is_file_type_match(path_str, file_ext):
     path_str = path_str.lower()
     for ext in file_ext:
@@ -107,13 +92,3 @@ def scan_directory(source_directory, file_ext_names, calc_hash=False):
             stat_list.append(file_info)
     stat_list.sort(key=lambda p: p["name"])
     return stat_list
-
-
-def is_file_exist(file_path):
-    file_path_info = Path(file_path)
-    return file_path_info.is_file()
-
-
-def is_dir_exist(file_path):
-    file_path_info = Path(file_path)
-    return file_path_info.is_dir()
