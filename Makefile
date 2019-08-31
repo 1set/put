@@ -10,6 +10,8 @@ GIT=git
 default:
 	@echo "build target is required"
 	@exit 2
+setupenv:
+	$(PIP) install --upgrade setuptools wheel twine tqdm pkginfo flake8 yapf pytest
 devinstall:
 	$(PIP) install -e .
 sandboxinstall:
@@ -21,6 +23,12 @@ uninstall:
 check:
 	$(PYTHON) -c "import $(NAME); print($(NAME).__version__); print($(NAME).__dir__())"
 devcheck: devinstall check
+lint:
+	$(PYTHON) -m flake8 --ignore=E501,F401 src
+	$(PYTHON) -m flake8 --ignore=E501,F401 tests
+format:
+	$(PYTHON) -m yapf -r -i src
+	$(PYTHON) -m yapf -r -i tests
 version:
 	$(PYTHON) setup.py --version
 tag:
