@@ -39,3 +39,4 @@ pushsandbox:
 pushprod:
 	@if [ "$(shell git rev-parse --abbrev-ref HEAD)" != "master" ]; then echo "must be on the master branch"; exit 3; fi
 	$(PYTHON) -m twine upload dist/*
+publish: test tag build pushsandbox pushprod
