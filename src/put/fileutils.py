@@ -24,8 +24,8 @@ def make_dir(*args):
     path = os.path.join(*args)
     try:
         os.makedirs(path)
-    except OSError as e:
-        if e.errno != errno.EEXIST:
+    except OSError as ex:
+        if ex.errno != errno.EEXIST or not is_dir_exist(path):
             raise
     return path
 

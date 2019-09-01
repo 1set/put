@@ -26,8 +26,9 @@ def test_is_dir_exist():
 
 def test_make_dir():
     assert make_dir("tests") == "tests"
-    assert make_dir("LICENSE") == "LICENSE"
     assert make_dir("/tmp", "py-put-test") == "/tmp/py-put-test"
+    with pytest.raises(FileExistsError):
+        assert make_dir("LICENSE") == "LICENSE"
 
 
 def test_save_json():
