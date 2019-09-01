@@ -24,8 +24,7 @@ check:
 	$(PYTHON) -c "import $(NAME); print($(NAME).__version__); print($(NAME).__dir__())"
 devcheck: devinstall check
 lint:
-	$(PYTHON) -m flake8 --ignore=E501,F401 src
-	$(PYTHON) -m flake8 --ignore=E501,F401 tests
+	$(PYTHON) -m flake8 .
 format:
 	$(PYTHON) -m yapf -r -i src
 	$(PYTHON) -m yapf -r -i tests
