@@ -24,8 +24,8 @@ def make_dir(*args):
     path = os.path.join(*args)
     try:
         os.makedirs(path)
-    except OSError as e:
-        if e.errno != errno.EEXIST:
+    except OSError as ex:
+        if ex.errno != errno.EEXIST or not is_dir_exist(path):
             raise
     return path
 
@@ -105,8 +105,7 @@ def _is_file_type_match(path_str, file_ext):
 def scan_dir(src_dir, file_ext_names=None, calc_hash=False):
     """Walk through the directory recursively and retrieve all the file info"""
     file_list = [
-        f for f in iglob(src_dir + "/**/*", recursive=True)
-        if os.path.isfile(f) and _is_file_type_match(f, file_ext_names)
+        f for f in iglob(src_dir + "/**/*", recursive=True) if os.path.isfile(f) and _is_file_type_match(f, file_ext_names)
     ]
     stat_list = []
     for file in file_list:

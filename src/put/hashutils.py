@@ -13,6 +13,11 @@ def _compute_file_hash(file_name, calc_func):
         return d
 
 
+def md5str(content):
+    """Calculate MD5 checksum for a string"""
+    return hashlib.md5(str.encode(content)).hexdigest()
+
+
 def md5sum(file_name):
     """Calculate MD5 checksum for a file"""
     return _compute_file_hash(file_name, hashlib.md5).hexdigest()
@@ -21,8 +26,3 @@ def md5sum(file_name):
 def md5base64(file_name):
     """Calculate MD5 checksum in Base64 for a file"""
     return b64encode(_compute_file_hash(file_name, hashlib.md5).digest()).decode("utf-8")
-
-
-def md5str(content):
-    """Calculate MD5 checksum for a string"""
-    return hashlib.md5(str.encode(content)).hexdigest()
