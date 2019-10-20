@@ -11,7 +11,7 @@ default:
 	@echo "build target is required"
 	@exit 2
 setupenv:
-	$(PIP) install --upgrade setuptools wheel twine tqdm pkginfo flake8 yapf pytest
+	$(PIP) install --upgrade setuptools wheel twine tqdm pkginfo flake8 yapf pytest sphinx recommonmark
 devinstall:
 	$(PIP) install -e .
 sandboxinstall:
@@ -41,6 +41,10 @@ build: clean
 	$(PYTHON) setup.py sdist bdist_wheel
 test:
 	$(PYTHON) setup.py test
+builddoc: clean
+	$(PYTHON) setup.py docs
+testdoc: clean
+	$(PYTHON) setup.py doctest
 pushsandbox:
 	$(PYTHON) -m twine upload dist/* -r testpypi
 pushprod:
