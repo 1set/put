@@ -18,13 +18,14 @@ the following helper methods are included:
 
 * **hash** utilities:
     - md5: md5str, md5sum, md5base64
+    - sha1: sha1str, sha1sum, sha1base64
+    - sha256: sha256str, sha256sum, sha256base64
 * **file** utilities:
-    - directory: is_dir_exist, make_dir, scan_dir
+    - directory: is_dir_exist, make_dir, scan_dir, join_path
     - file: is_file_exist, save_json, load_json, load_lines, get_file_info
 
 ## planning
 
-* [ ] hash: sha1, sha256
 * [ ] file: copy, move
 * [ ] zip: zip, unzip
 * [ ] id generator

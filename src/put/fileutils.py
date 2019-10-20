@@ -30,6 +30,11 @@ def make_dir(*args):
     return path
 
 
+def join_path(*args):
+    """Join two or more or less paths"""
+    return os.path.join(*args)
+
+
 def _json_serial(obj):
     """JSON serializer for objects not serializable by default json code"""
     if isinstance(obj, (datetime, date)):
@@ -96,16 +101,20 @@ def _is_file_type_match(path_str, file_ext):
         return True
     path_str = path_str.lower()
     for ext in file_ext:
-        ext = "." + ext.lstrip(".")
         if path_str.endswith(ext):
             return True
     return False
 
 
-def scan_dir(src_dir, file_ext_names=None, calc_hash=False):
+def scan_dir(src_dir, file_ext_names=None, calc_hash=False, recursive=True):
     """Walk through the directory recursively and retrieve all the file info"""
+    if recursive:
+        path_suffix = "/**/*"
+    else:
+        path_suffix = "/**"
+    file_ext = None if file_ext_names is None else ["." + ext.lstrip(".") for ext in file_ext_names if len(ext) > 0]
     file_list = [
-        f for f in iglob(src_dir + "/**/*", recursive=True) if os.path.isfile(f) and _is_file_type_match(f, file_ext_names)
+        f for f in iglob(src_dir + path_suffix, recursive=recursive) if os.path.isfile(f) and _is_file_type_match(f, file_ext)
     ]
     stat_list = []
     for file in file_list:

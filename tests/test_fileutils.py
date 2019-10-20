@@ -3,6 +3,7 @@ from put.fileutils import (
     is_file_exist,
     is_dir_exist,
     make_dir,
+    join_path,
     save_json,
     load_json,
     load_lines,
@@ -22,6 +23,15 @@ def test_is_dir_exist():
     assert not is_dir_exist("LICENSE")
     assert is_dir_exist("tests")
     assert not is_dir_exist("__check_a_directory_no_exists__")
+
+
+def test_join_path():
+    assert join_path("") == ""
+    assert join_path("hello") == "hello"
+    assert join_path("hello", "world") == "hello/world"
+    assert join_path("a", "b", "c") == "a/b/c"
+    with pytest.raises(TypeError):
+        assert join_path()
 
 
 def test_make_dir():
@@ -88,3 +98,11 @@ def test_scan_dir():
     assert len(files4) >= 1
     files5 = scan_dir("tests", [])
     assert len(files5) == 0
+    files6 = scan_dir("tests", ["py", "json"])
+    assert len([f for f in files6 if f['dirn'] == "resources"]) >= 1
+    files7 = scan_dir("tests", ["py", "json"], recursive=False)
+    assert len([f for f in files7 if f['dirn'] == "resources"]) == 0
+    files8 = scan_dir("tests", ["py", "json"])
+    assert len([f for f in files8 if not (f['hash'] is None and f['bmd5'] is None)]) == 0
+    files9 = scan_dir("tests", ["py", "json"], calc_hash=True)
+    assert len([f for f in files9 if f['hash'] is None or f['bmd5'] is None]) == 0
