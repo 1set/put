@@ -10,11 +10,17 @@ except DistributionNotFound:
 finally:
     del get_distribution, DistributionNotFound
 
-from .hashutils import md5str, md5sum, md5base64
+from .hashutils import (
+    md5str, md5sum, md5base64,
+    sha1str, sha1sum, sha1base64,
+    sha256str, sha256sum, sha256base64
+)
+
 from .fileutils import (
     is_file_exist,
     is_dir_exist,
     make_dir,
+    join_path,
     save_json,
     load_json,
     load_lines,
