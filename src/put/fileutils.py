@@ -30,6 +30,11 @@ def make_dir(*args):
     return path
 
 
+def join_path(*args):
+    """Join two or more or less paths"""
+    return os.path.join(*args)
+
+
 def _json_serial(obj):
     """JSON serializer for objects not serializable by default json code"""
     if isinstance(obj, (datetime, date)):

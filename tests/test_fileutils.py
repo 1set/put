@@ -3,6 +3,7 @@ from put.fileutils import (
     is_file_exist,
     is_dir_exist,
     make_dir,
+    join_path,
     save_json,
     load_json,
     load_lines,
@@ -22,6 +23,15 @@ def test_is_dir_exist():
     assert not is_dir_exist("LICENSE")
     assert is_dir_exist("tests")
     assert not is_dir_exist("__check_a_directory_no_exists__")
+
+
+def test_join_path():
+    assert join_path("") == ""
+    assert join_path("hello") == "hello"
+    assert join_path("hello", "world") == "hello/world"
+    assert join_path("a", "b", "c") == "a/b/c"
+    with pytest.raises(TypeError):
+        assert join_path()
 
 
 def test_make_dir():
