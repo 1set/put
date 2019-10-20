@@ -88,3 +88,11 @@ def test_scan_dir():
     assert len(files4) >= 1
     files5 = scan_dir("tests", [])
     assert len(files5) == 0
+    files6 = scan_dir("tests", ["py", "json"])
+    assert len([f for f in files6 if f['dirn'] == "resources"]) >= 1
+    files7 = scan_dir("tests", ["py", "json"], recursive=False)
+    assert len([f for f in files7 if f['dirn'] == "resources"]) == 0
+    files8 = scan_dir("tests", ["py", "json"])
+    assert len([f for f in files8 if not (f['hash'] is None and f['bmd5'] is None)]) == 0
+    files9 = scan_dir("tests", ["py", "json"], calc_hash=True)
+    assert len([f for f in files9 if f['hash'] is None or f['bmd5'] is None]) == 0

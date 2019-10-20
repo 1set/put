@@ -102,10 +102,14 @@ def _is_file_type_match(path_str, file_ext):
     return False
 
 
-def scan_dir(src_dir, file_ext_names=None, calc_hash=False):
+def scan_dir(src_dir, file_ext_names=None, calc_hash=False, recursive=True):
     """Walk through the directory recursively and retrieve all the file info"""
+    if recursive:
+        path_suffix = "/**/*"
+    else:
+        path_suffix = "/**"
     file_list = [
-        f for f in iglob(src_dir + "/**/*", recursive=True) if os.path.isfile(f) and _is_file_type_match(f, file_ext_names)
+        f for f in iglob(src_dir + path_suffix, recursive=recursive) if os.path.isfile(f) and _is_file_type_match(f, file_ext_names)
     ]
     stat_list = []
     for file in file_list:
