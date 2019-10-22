@@ -101,7 +101,7 @@ def _is_file_type_match(path_str, file_ext):
         return True
     path_str = path_str.lower()
     for ext in file_ext:
-        if path_str.endswith(ext):
+        if path_str.lower().endswith(ext):
             return True
     return False
 
@@ -112,7 +112,7 @@ def scan_dir(src_dir, file_ext_names=None, calc_hash=False, recursive=True):
         path_suffix = "/**/*"
     else:
         path_suffix = "/**"
-    file_ext = None if file_ext_names is None else ["." + ext.lstrip(".") for ext in file_ext_names if len(ext) > 0]
+    file_ext = None if file_ext_names is None else ["." + ext.lstrip(".").lower() for ext in file_ext_names if len(ext) > 0]
     file_list = [
         f for f in iglob(src_dir + path_suffix, recursive=recursive) if os.path.isfile(f) and _is_file_type_match(f, file_ext)
     ]
