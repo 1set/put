@@ -5,7 +5,7 @@ on:
     paths-ignore:
     - '**.md'
   schedule:
-    - cron:  '0 21 * * *'
+    - cron:  '0 22 * * *'
 
 jobs:
   build:
