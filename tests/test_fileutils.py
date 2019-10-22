@@ -1,3 +1,5 @@
+# -*- coding: UTF-8 -*-
+
 import pytest
 from put.fileutils import (
     is_file_exist,

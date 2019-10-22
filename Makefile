@@ -3,7 +3,7 @@
 NAME=put
 VERSION=0.0.5
 
-PYTHON=python3
+PYTHON=python
 PIP=$(PYTHON) -m pip
 GIT=git
 
@@ -11,7 +11,7 @@ default:
 	@echo "build target is required"
 	@exit 2
 setupenv:
-	$(PIP) install --upgrade setuptools wheel twine tqdm pkginfo flake8 yapf pytest sphinx recommonmark
+	$(PIP) install --upgrade setuptools wheel twine tqdm pkginfo flake8 yapf pytest pytest-cov sphinx recommonmark
 devinstall:
 	$(PIP) install -e .
 sandboxinstall:
