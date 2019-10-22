@@ -1,34 +1,48 @@
 name: Python package
 
-on: [push]
+on:
+  push:
+    paths-ignore:
+    - '**.md'
+  schedule:
+    - cron:  '0 21 * * *'
 
 jobs:
   build:
-
+    name: Build
     runs-on: ${{ matrix.vm-os }}
     strategy:
-      max-parallel: 4
+      max-parallel: 10
       matrix:
         vm-os: [ubuntu-latest, macOS-latest]
         python-version: [2.7, 3.5, 3.6, 3.7]
 
     steps:
-    - uses: actions/checkout@v1
     - name: Set up Python ${{ matrix.python-version }}
       uses: actions/setup-python@v1
       with:
         python-version: ${{ matrix.python-version }}
+
+    - name: Check out source code
+      uses: actions/checkout@v1
+      with:
+        fetch-depth: 2
+
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
         make setupenv
+
     - name: Lint with flake8
       run: |
         make lint
+
     - name: Test with pytest
       run: |
         make test
+        make devinstall
         pytest --cov=tests/ --cov-report term
+
     - name: Upload report to Codecov
       uses: codecov/codecov-action@v1.0.2
       with:
