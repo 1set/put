@@ -2,6 +2,7 @@ from datetime import date, datetime
 from glob import iglob
 from json import dump, load
 from pathlib import Path
+from shutil import rmtree
 from .hashutils import md5sum, md5base64
 import errno
 import os
@@ -13,26 +14,32 @@ def is_file_exist(file_path):
     return file_path_info.is_file()
 
 
-def is_dir_exist(file_path):
+def is_dir_exist(dir_path):
     """Whether the directory exists"""
-    file_path_info = Path(file_path)
+    file_path_info = Path(dir_path)
     return file_path_info.is_dir()
 
 
-def is_dir_empty(file_path):
+def is_dir_empty(dir_path):
     """Whether the directory is empty"""
-    return is_dir_exist(file_path) and not os.listdir(file_path)
+    return is_dir_exist(dir_path) and not os.listdir(dir_path)
 
 
 def make_dir(*args):
     """Create a directory with named path if not exists"""
-    path = os.path.join(*args)
+    path = join_path(*args)
     try:
         os.makedirs(path)
     except OSError as ex:
         if ex.errno != errno.EEXIST or not is_dir_exist(path):
             raise
     return path
+
+
+def remove_dir(*args):
+    """Remove a directory whether it is empty or not"""
+    path = join_path(*args)
+    rmtree(path, ignore_errors=True)
 
 
 def join_path(*args):

@@ -21,6 +21,7 @@ from .fileutils import (
     is_dir_exist,
     is_dir_empty,
     make_dir,
+    remove_dir,
     join_path,
     save_json,
     load_json,

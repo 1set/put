@@ -6,6 +6,7 @@ from put.fileutils import (
     is_dir_exist,
     is_dir_empty,
     make_dir,
+    remove_dir,
     join_path,
     save_json,
     load_json,
@@ -52,8 +53,23 @@ def test_make_dir():
     with TemporaryDirectory() as tmp_dir:
         target_dir = join_path(tmp_dir, "py-put-test")
         assert make_dir(target_dir) == target_dir
+        assert is_dir_exist(target_dir)
+        target_dir = join_path(tmp_dir, "py-put-test", "123", "456", "789")
+        assert make_dir(target_dir) == target_dir
+        assert is_dir_exist(target_dir)
     with pytest.raises(FileExistsError):
         assert make_dir("LICENSE") == "LICENSE"
+
+
+def test_remove_dir():
+    assert remove_dir("__remove_a_directory_no_exists__") is None
+    assert remove_dir("LICENSE") is None
+    with TemporaryDirectory() as tmp_dir:
+        target_dir = join_path(tmp_dir, "py-put-test")
+        assert make_dir(target_dir) == target_dir
+        assert is_dir_exist(target_dir)
+        assert remove_dir(target_dir) is None
+        assert not is_dir_exist(target_dir)
 
 
 def test_save_json():
