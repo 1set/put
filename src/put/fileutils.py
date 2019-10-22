@@ -19,6 +19,11 @@ def is_dir_exist(file_path):
     return file_path_info.is_dir()
 
 
+def is_dir_empty(file_path):
+    """Whether the directory is empty"""
+    return is_dir_exist(file_path) and not os.listdir(file_path)
+
+
 def make_dir(*args):
     """Create a directory with named path if not exists"""
     path = os.path.join(*args)

@@ -4,6 +4,7 @@ import pytest
 from put.fileutils import (
     is_file_exist,
     is_dir_exist,
+    is_dir_empty,
     make_dir,
     join_path,
     save_json,
@@ -13,6 +14,7 @@ from put.fileutils import (
     scan_dir,
 )
 from datetime import datetime
+from tempfile import TemporaryDirectory
 
 
 def test_is_file_exist():
@@ -25,6 +27,14 @@ def test_is_dir_exist():
     assert not is_dir_exist("LICENSE")
     assert is_dir_exist("tests")
     assert not is_dir_exist("__check_a_directory_no_exists__")
+
+
+def test_is_dir_empty():
+    assert not is_dir_empty("LICENSE")
+    assert not is_dir_empty("tests")
+    assert not is_dir_empty("__check_a_directory_no_exists__")
+    with TemporaryDirectory() as tmp_dir:
+        assert is_dir_empty(tmp_dir)
 
 
 def test_join_path():
