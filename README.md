@@ -6,7 +6,7 @@
 [![GitHub last commit](https://img.shields.io/github/last-commit/an63/put?style=flat-square)](https://github.com/an63/put/commits/master)
 [![PyPI - Downloads](https://img.shields.io/pypi/dw/put?style=flat-square)](https://pepy.tech/project/put)
 [![Codacy Grade](https://img.shields.io/codacy/grade/f1c04ec78a4b45a4b8d95d89c94ba24e?style=flat-square)](https://www.codacy.com/manual/an9an63/put)
-[![Code Climate maintainability](https://img.shields.io/codeclimate/maintainability-percentage/an63/put)](https://codeclimate.com/github/an63/put)
+[![Code Climate maintainability](https://img.shields.io/codeclimate/maintainability-percentage/an63/put?style=flat-square)](https://codeclimate.com/github/an63/put)
 
 **put**, stands for **P**ython **u**tilities & **t**ools, is a collection of wonderful Python utilities and tools that can make your life easier.
 
@@ -29,9 +29,3 @@ the following helper methods are included:
 * **file** utilities:
     - directory: is_dir_exist, make_dir, scan_dir, join_path
     - file: is_file_exist, save_json, load_json, load_lines, get_file_info
-
-## planning
-
-* [ ] file: copy, move
-* [ ] zip: zip, unzip
-* [ ] id generator
