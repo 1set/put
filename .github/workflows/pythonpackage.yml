@@ -5,10 +5,11 @@ on: [push]
 jobs:
   build:
 
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.vm-os }}
     strategy:
       max-parallel: 4
       matrix:
+        vm-os: [ubuntu-latest, macOS-latest]
         python-version: [2.7, 3.5, 3.6, 3.7]
 
     steps:
@@ -27,3 +28,10 @@ jobs:
     - name: Test with pytest
       run: |
         make test
+        pytest --cov=tests/ --cov-report term
+    - name: Upload report to Codecov
+      uses: codecov/codecov-action@v1.0.2
+      with:
+        token: ${{secrets.codecov_token}}
+        file: ./coverage
+      if: startsWith(matrix.vm-os, 'ubuntu')
