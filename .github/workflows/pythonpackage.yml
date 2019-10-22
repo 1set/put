@@ -44,15 +44,22 @@ jobs:
         make lint
       if: startsWith(matrix.python-version, '2.') == false
 
-    - name: Test with pytest
+    - name: Test with pytest for Python 2.*
+      run: |
+        make devinstall
+        pytest --cov=tests/ --cov-report term
+      if: startsWith(matrix.python-version, '2.')
+
+    - name: Test with pytest for Python 3.*
       run: |
         make test
         make devinstall
         pytest --cov=tests/ --cov-report term
+      if: startsWith(matrix.python-version, '3.')
 
     - name: Upload report to Codecov
       uses: codecov/codecov-action@v1.0.2
       with:
         token: ${{secrets.codecov_token}}
         file: ./coverage
-      if: startsWith(matrix.vm-os, 'ubuntu')
+      if: startsWith(matrix.vm-os, 'ubuntu') && startsWith(matrix.python-version, '3.')

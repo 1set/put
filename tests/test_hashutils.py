@@ -1,3 +1,5 @@
+# -*- coding: UTF-8 -*-
+
 import pytest
 from put.hashutils import (
     md5str, md5sum, md5base64,
