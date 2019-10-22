@@ -42,7 +42,7 @@ jobs:
     - name: Lint with flake8
       run: |
         make lint
-      if: !startsWith(python-version, '2.')
+      if: startsWith(python-version, '2.') == false
 
     - name: Test with pytest
       run: |
