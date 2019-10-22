@@ -46,8 +46,6 @@ jobs:
     - name: Test with pytest
       run: |
         make test
-        make devinstall
-        pytest --cov=put --cov-report=xml
 
     - name: Upload report to Codecov
       uses: codecov/codecov-action@v1.0.3
