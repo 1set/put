@@ -2,15 +2,15 @@ from base64 import b64encode
 from functools import partial
 import hashlib
 
-_file_buffer_size = 4096
+FILE_BUFFER_SIZE = 4096
 
 
 def _compute_file_hash(file_name, calc_func):
-    with open(file_name, mode="rb") as f:
-        d = calc_func()
-        for buf in iter(partial(f.read, _file_buffer_size), b""):
-            d.update(buf)
-        return d
+    with open(file_name, mode="rb") as file:
+        data = calc_func()
+        for buf in iter(partial(file.read, FILE_BUFFER_SIZE), b""):
+            data.update(buf)
+        return data
 
 
 def _compute_base64_file_hash(file_name, calc_func):

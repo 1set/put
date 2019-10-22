@@ -1,7 +1,7 @@
 .PHONY: default
 
 NAME=put
-VERSION=0.0.5
+VERSION=0.0.6
 
 PYTHON=python
 PIP=$(PYTHON) -m pip

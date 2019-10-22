@@ -7,6 +7,7 @@
 [![Codacy Grade](https://img.shields.io/codacy/grade/f1c04ec78a4b45a4b8d95d89c94ba24e?style=flat-square)](https://www.codacy.com/manual/an9an63/put)
 [![Code Climate maintainability](https://img.shields.io/codeclimate/maintainability-percentage/an63/put?style=flat-square)](https://codeclimate.com/github/an63/put)
 [![Codecov](https://img.shields.io/codecov/c/gh/an63/put?style=flat-square)](https://codecov.io/gh/an63/put)
+[![DeepSource](https://static.deepsource.io/deepsource-badge-light.svg)](https://deepsource.io/gh/an63/put/?ref=repository-badge)
 
 **put**, stands for **P**ython **u**tilities & **t**ools, is a collection of wonderful Python utilities and tools that can make your life easier.
 
@@ -28,5 +29,5 @@ the following helper methods are included:
     -   sha256: sha256str, sha256sum, sha256base64
 
 -   **file** utilities:
-    -   directory: is_dir_exist, make_dir, scan_dir, join_path
+    -   directory: is_dir_exist, is_dir_empty, make_dir, remove_dir, scan_dir, join_path
     -   file: is_file_exist, save_json, load_json, load_lines, get_file_info

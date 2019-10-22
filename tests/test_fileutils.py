@@ -4,7 +4,9 @@ import pytest
 from put.fileutils import (
     is_file_exist,
     is_dir_exist,
+    is_dir_empty,
     make_dir,
+    remove_dir,
     join_path,
     save_json,
     load_json,
@@ -13,18 +15,64 @@ from put.fileutils import (
     scan_dir,
 )
 from datetime import datetime
+from tempfile import TemporaryDirectory
 
 
 def test_is_file_exist():
     assert is_file_exist("LICENSE")
+    assert not is_file_exist("__check_a_file_not_exists__")
     assert not is_file_exist("tests")
-    assert not is_file_exist("__check_a_file_no_exists__")
+    assert not is_file_exist("tests", "resources")
+    assert is_file_exist(join_path("tests", "resources", "sample.json"))
+    assert is_file_exist("tests", "resources", "sample.json")
 
 
 def test_is_dir_exist():
     assert not is_dir_exist("LICENSE")
     assert is_dir_exist("tests")
-    assert not is_dir_exist("__check_a_directory_no_exists__")
+    assert is_dir_exist("tests", "resources")
+    assert not is_dir_exist("tests", "resources", "sample.json")
+    assert not is_dir_exist("__check_a_directory_not_exists__")
+
+
+def test_is_dir_empty():
+    assert not is_dir_empty("LICENSE")
+    assert not is_dir_empty("tests")
+    assert not is_dir_empty("tests", "resources")
+    assert not is_dir_empty(join_path("tests", "resources"))
+    assert not is_dir_empty("__check_a_directory_not_exists__")
+    with TemporaryDirectory() as tmp_dir:
+        assert is_dir_empty(tmp_dir)
+        make_dir(tmp_dir, "nested-empty")
+        assert is_dir_empty(tmp_dir, "nested-empty")
+        assert not is_dir_empty(tmp_dir, "__nested_not_exists__")
+
+
+def test_make_dir():
+    assert make_dir("tests") == "tests"
+    with TemporaryDirectory() as tmp_dir:
+        target_dir = join_path(tmp_dir, "py-put-test-make")
+        assert make_dir(target_dir) == target_dir
+        assert is_dir_exist(target_dir)
+        target_dir = join_path(tmp_dir, "py-put-test-makeq", "123", "456", "789")
+        assert make_dir(target_dir) == target_dir
+        assert is_dir_exist(target_dir)
+    with pytest.raises(FileExistsError):
+        assert make_dir("LICENSE") == "LICENSE"
+
+
+def test_remove_dir():
+    assert remove_dir("__remove_a_directory_no_exists__") is None
+    target_file = "LICENSE"
+    assert is_file_exist(target_file)
+    assert remove_dir(target_file) is None
+    assert is_file_exist(target_file)
+    with TemporaryDirectory() as tmp_dir:
+        target_dir = join_path(tmp_dir, "py-put-test-remove")
+        assert make_dir(target_dir) == target_dir
+        assert is_dir_exist(target_dir)
+        assert remove_dir(target_dir) is None
+        assert not is_dir_exist(target_dir)
 
 
 def test_join_path():
@@ -36,17 +84,11 @@ def test_join_path():
         assert join_path()
 
 
-def test_make_dir():
-    assert make_dir("tests") == "tests"
-    assert make_dir("/tmp", "py-put-test") == "/tmp/py-put-test"
-    with pytest.raises(FileExistsError):
-        assert make_dir("LICENSE") == "LICENSE"
-
-
 def test_save_json():
     sample = {"time": datetime.now(), "integer": 123, "float": 456.789, "bool": True}
-    assert save_json("/tmp/py-put-test-file.json", sample) is None
-    assert save_json("/tmp/py-put-test-file2.json", sample, False) is None
+    with TemporaryDirectory() as tmp_dir:
+        assert save_json(join_path(tmp_dir, "py-put-test-file.json"), sample) is None
+        assert save_json(join_path(tmp_dir, "py-put-test-file2.json"), sample, False) is None
     with pytest.raises(IsADirectoryError):
         assert save_json("tests", sample)
 
