@@ -8,21 +8,24 @@ import errno
 import os
 
 
-def is_file_exist(file_path):
+def is_file_exist(*args):
     """Whether the file exists"""
-    file_path_info = Path(file_path)
-    return file_path_info.is_file()
+    path = join_path(*args)
+    path_info = Path(path)
+    return path_info.is_file()
 
 
-def is_dir_exist(dir_path):
+def is_dir_exist(*args):
     """Whether the directory exists"""
-    file_path_info = Path(dir_path)
-    return file_path_info.is_dir()
+    path = join_path(*args)
+    path_info = Path(path)
+    return path_info.is_dir()
 
 
-def is_dir_empty(dir_path):
+def is_dir_empty(*args):
     """Whether the directory is empty"""
-    return is_dir_exist(dir_path) and not os.listdir(dir_path)
+    path = join_path(*args)
+    return is_dir_exist(path) and not os.listdir(path)
 
 
 def make_dir(*args):

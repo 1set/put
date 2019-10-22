@@ -21,22 +21,25 @@ from tempfile import TemporaryDirectory
 def test_is_file_exist():
     assert is_file_exist("LICENSE")
     assert not is_file_exist("tests")
-    assert not is_file_exist("__check_a_file_no_exists__")
+    assert not is_file_exist("__check_a_file_not_exists__")
 
 
 def test_is_dir_exist():
     assert not is_dir_exist("LICENSE")
     assert is_dir_exist("tests")
-    assert not is_dir_exist("__check_a_directory_no_exists__")
+    assert not is_dir_exist("__check_a_directory_not_exists__")
 
 
 def test_is_dir_empty():
     assert not is_dir_empty("LICENSE")
     assert not is_dir_empty("tests")
     assert not is_dir_empty(join_path("tests", "resources"))
-    assert not is_dir_empty("__check_a_directory_no_exists__")
+    assert not is_dir_empty("__check_a_directory_not_exists__")
     with TemporaryDirectory() as tmp_dir:
         assert is_dir_empty(tmp_dir)
+        make_dir(tmp_dir, "nested-empty")
+        assert is_dir_empty(tmp_dir, "nested-empty")
+        assert not is_dir_empty(tmp_dir, "__nested_not_exists__")
 
 
 def test_join_path():
