@@ -16,7 +16,7 @@ jobs:
       max-parallel: 10
       matrix:
         vm-os: [ubuntu-latest, macOS-latest]
-        python-version: [2.7, 3.5, 3.6, 3.7]
+        python-version: [3.5, 3.6, 3.7]
 
     steps:
     - name: Set up Python ${{ matrix.python-version }}
@@ -42,24 +42,14 @@ jobs:
     - name: Lint with flake8
       run: |
         make lint
-      if: startsWith(matrix.python-version, '2.') == false
 
-    - name: Test with pytest for Python 2.*
-      run: |
-        make devinstall
-        pytest --cov=tests/ --cov-report term
-      if: startsWith(matrix.python-version, '2.')
-
-    - name: Test with pytest for Python 3.*
+    - name: Test with pytest
       run: |
         make test
-        make devinstall
-        pytest --cov=tests/ --cov-report term
-      if: startsWith(matrix.python-version, '3.')
 
     - name: Upload report to Codecov
       uses: codecov/codecov-action@v1.0.2
       with:
         token: ${{secrets.codecov_token}}
         file: ./coverage
-      if: startsWith(matrix.vm-os, 'ubuntu') && startsWith(matrix.python-version, '3.')
+      if: startsWith(matrix.vm-os, 'ubuntu')
