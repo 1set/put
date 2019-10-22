@@ -3,7 +3,7 @@
 NAME=put
 VERSION=0.0.5
 
-PYTHON=python3
+PYTHON=python
 PIP=$(PYTHON) -m pip
 GIT=git
 

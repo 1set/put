@@ -33,6 +33,11 @@ jobs:
         python -m pip install --upgrade pip
         make setupenv
 
+    - name: Check Python environment
+      run: |
+        python --version
+        pip freeze -l
+
     - name: Lint with flake8
       run: |
         make lint
