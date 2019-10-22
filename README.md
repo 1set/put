@@ -29,5 +29,5 @@ the following helper methods are included:
     -   sha256: sha256str, sha256sum, sha256base64
 
 -   **file** utilities:
-    -   directory: is_dir_exist, is_dir_empty, make_dir, scan_dir, join_path
+    -   directory: is_dir_exist, is_dir_empty, make_dir, remove_dir, scan_dir, join_path
     -   file: is_file_exist, save_json, load_json, load_lines, get_file_info
