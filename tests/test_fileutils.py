@@ -51,10 +51,10 @@ def test_join_path():
 def test_make_dir():
     assert make_dir("tests") == "tests"
     with TemporaryDirectory() as tmp_dir:
-        target_dir = join_path(tmp_dir, "py-put-test")
+        target_dir = join_path(tmp_dir, "py-put-test-make")
         assert make_dir(target_dir) == target_dir
         assert is_dir_exist(target_dir)
-        target_dir = join_path(tmp_dir, "py-put-test", "123", "456", "789")
+        target_dir = join_path(tmp_dir, "py-put-test-makeq", "123", "456", "789")
         assert make_dir(target_dir) == target_dir
         assert is_dir_exist(target_dir)
     with pytest.raises(FileExistsError):
@@ -63,9 +63,12 @@ def test_make_dir():
 
 def test_remove_dir():
     assert remove_dir("__remove_a_directory_no_exists__") is None
-    assert remove_dir("LICENSE") is None
+    target_file = "LICENSE"
+    assert is_file_exist(target_file)
+    assert remove_dir(target_file) is None
+    assert is_file_exist(target_file)
     with TemporaryDirectory() as tmp_dir:
-        target_dir = join_path(tmp_dir, "py-put-test")
+        target_dir = join_path(tmp_dir, "py-put-test-remove")
         assert make_dir(target_dir) == target_dir
         assert is_dir_exist(target_dir)
         assert remove_dir(target_dir) is None
