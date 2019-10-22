@@ -12,6 +12,7 @@ jobs:
     name: Build
     runs-on: ${{ matrix.vm-os }}
     strategy:
+      fail-fast: false
       max-parallel: 10
       matrix:
         vm-os: [ubuntu-latest, macOS-latest]
@@ -41,6 +42,7 @@ jobs:
     - name: Lint with flake8
       run: |
         make lint
+      if: !startsWith(python-version, '2.')
 
     - name: Test with pytest
       run: |
