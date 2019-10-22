@@ -84,10 +84,12 @@ def get_file_info(path_str, calc_hash=False):
     stat_size = stat_info.st_size
     file_date = datetime.utcfromtimestamp(stat_info.st_mtime)
     file_name = os.path.basename(path_str)
+    name_parts = os.path.splitext(file_name)
     return {
         "name": file_name,
         "path": path_str,
-        "base": os.path.splitext(file_name)[0],
+        "base": name_parts[0],
+        "extn": name_parts[1].lstrip("."),
         "dirn": os.path.basename(os.path.dirname(path_str)),
         "size": stat_size,
         "hash": md5sum(path_str) if calc_hash else None,
@@ -101,7 +103,7 @@ def _is_file_type_match(path_str, file_ext):
         return True
     path_str = path_str.lower()
     for ext in file_ext:
-        if path_str.endswith(ext):
+        if path_str.lower().endswith(ext):
             return True
     return False
 
@@ -112,7 +114,9 @@ def scan_dir(src_dir, file_ext_names=None, calc_hash=False, recursive=True):
         path_suffix = "/**/*"
     else:
         path_suffix = "/**"
-    file_ext = None if file_ext_names is None else ["." + ext.lstrip(".") for ext in file_ext_names if len(ext) > 0]
+    file_ext = None
+    if file_ext_names is not None:
+        file_ext = ["." + ext.lstrip(".").lower() for ext in file_ext_names if ext]
     file_list = [
         f for f in iglob(src_dir + path_suffix, recursive=recursive) if os.path.isfile(f) and _is_file_type_match(f, file_ext)
     ]
