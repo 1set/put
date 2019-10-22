@@ -20,19 +20,25 @@ from tempfile import TemporaryDirectory
 
 def test_is_file_exist():
     assert is_file_exist("LICENSE")
-    assert not is_file_exist("tests")
     assert not is_file_exist("__check_a_file_not_exists__")
+    assert not is_file_exist("tests")
+    assert not is_file_exist("tests", "resources")
+    assert is_file_exist(join_path("tests", "resources", "sample.json"))
+    assert is_file_exist("tests", "resources", "sample.json")
 
 
 def test_is_dir_exist():
     assert not is_dir_exist("LICENSE")
     assert is_dir_exist("tests")
+    assert is_dir_exist("tests", "resources")
+    assert not is_dir_exist("tests", "resources", "sample.json")
     assert not is_dir_exist("__check_a_directory_not_exists__")
 
 
 def test_is_dir_empty():
     assert not is_dir_empty("LICENSE")
     assert not is_dir_empty("tests")
+    assert not is_dir_empty("tests", "resources")
     assert not is_dir_empty(join_path("tests", "resources"))
     assert not is_dir_empty("__check_a_directory_not_exists__")
     with TemporaryDirectory() as tmp_dir:
@@ -40,15 +46,6 @@ def test_is_dir_empty():
         make_dir(tmp_dir, "nested-empty")
         assert is_dir_empty(tmp_dir, "nested-empty")
         assert not is_dir_empty(tmp_dir, "__nested_not_exists__")
-
-
-def test_join_path():
-    assert join_path("") == ""
-    assert join_path("hello") == "hello"
-    assert join_path("hello", "world") == "hello/world"
-    assert join_path("a", "b", "c") == "a/b/c"
-    with pytest.raises(TypeError):
-        assert join_path()
 
 
 def test_make_dir():
@@ -76,6 +73,15 @@ def test_remove_dir():
         assert is_dir_exist(target_dir)
         assert remove_dir(target_dir) is None
         assert not is_dir_exist(target_dir)
+
+
+def test_join_path():
+    assert join_path("") == ""
+    assert join_path("hello") == "hello"
+    assert join_path("hello", "world") == "hello/world"
+    assert join_path("a", "b", "c") == "a/b/c"
+    with pytest.raises(TypeError):
+        assert join_path()
 
 
 def test_save_json():

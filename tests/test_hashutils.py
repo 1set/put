@@ -1,11 +1,7 @@
 # -*- coding: UTF-8 -*-
 
 import pytest
-from put.hashutils import (
-    md5str, md5sum, md5base64,
-    sha1str, sha1sum, sha1base64,
-    sha256str, sha256sum, sha256base64
-)
+from put.hashutils import (md5str, md5sum, md5base64, sha1str, sha1sum, sha1base64, sha256str, sha256sum, sha256base64)
 
 
 def test_md5str():
