@@ -13,9 +13,17 @@ def _compute_file_hash(file_name, calc_func):
         return d
 
 
+def _compute_base64_file_hash(file_name, calc_func):
+    return b64encode(_compute_file_hash(file_name, calc_func).digest()).decode("utf-8")
+
+
+def _compute_string_hash(content, calc_func):
+    return calc_func(str.encode(content)).hexdigest()
+
+
 def md5str(content):
     """Calculate MD5 checksum for a string"""
-    return hashlib.md5(str.encode(content)).hexdigest()
+    return _compute_string_hash(content, hashlib.md5)
 
 
 def md5sum(file_name):
@@ -25,12 +33,12 @@ def md5sum(file_name):
 
 def md5base64(file_name):
     """Calculate MD5 checksum in Base64 for a file"""
-    return b64encode(_compute_file_hash(file_name, hashlib.md5).digest()).decode("utf-8")
+    return _compute_base64_file_hash(file_name, hashlib.md5)
 
 
 def sha1str(content):
     """Calculate SHA1 checksum for a string"""
-    return hashlib.sha1(str.encode(content)).hexdigest()
+    return _compute_string_hash(content, hashlib.sha1)
 
 
 def sha1sum(file_name):
@@ -40,12 +48,12 @@ def sha1sum(file_name):
 
 def sha1base64(file_name):
     """Calculate SHA1 checksum in Base64 for a file"""
-    return b64encode(_compute_file_hash(file_name, hashlib.sha1).digest()).decode("utf-8")
+    return _compute_base64_file_hash(file_name, hashlib.sha1)
 
 
 def sha256str(content):
     """Calculate SHA256 checksum for a string"""
-    return hashlib.sha256(str.encode(content)).hexdigest()
+    return _compute_string_hash(content, hashlib.sha256)
 
 
 def sha256sum(file_name):
@@ -55,4 +63,4 @@ def sha256sum(file_name):
 
 def sha256base64(file_name):
     """Calculate SHA256 checksum in Base64 for a file"""
-    return b64encode(_compute_file_hash(file_name, hashlib.sha256).digest()).decode("utf-8")
+    return _compute_base64_file_hash(file_name, hashlib.sha256)

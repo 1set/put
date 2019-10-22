@@ -10,7 +10,7 @@ from put.fileutils import (
     get_file_info,
     scan_dir,
 )
-from datetime import date, datetime
+from datetime import datetime
 
 
 def test_is_file_exist():
