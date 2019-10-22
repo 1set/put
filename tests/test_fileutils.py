@@ -74,6 +74,9 @@ def test_get_file_info():
     info1 = get_file_info("tests/resources/sample.json")
     assert info1 is not None
     assert info1["name"] == "sample.json"
+    assert info1["dirn"] == "resources"
+    assert info1["base"] == "sample"
+    assert info1["extn"] == "json"
     assert info1["size"] == 104
     assert info1["hash"] is None
     assert info1["bmd5"] is None
@@ -83,6 +86,11 @@ def test_get_file_info():
     assert info2["size"] == 104
     assert info2["hash"] == "5983c06a82baabe47239ca1502291f54"
     assert info2["bmd5"] == "WYPAaoK6q+RyOcoVAikfVA=="
+    info3 = get_file_info("tests/test_fileutils.py", True)
+    assert info3["dirn"] == "tests"
+    assert info3["name"] == "test_fileutils.py"
+    assert info3["base"] == "test_fileutils"
+    assert info3["extn"] == "py"
 
 
 def test_scan_dir():

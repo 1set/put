@@ -84,10 +84,12 @@ def get_file_info(path_str, calc_hash=False):
     stat_size = stat_info.st_size
     file_date = datetime.utcfromtimestamp(stat_info.st_mtime)
     file_name = os.path.basename(path_str)
+    name_parts = os.path.splitext(file_name)
     return {
         "name": file_name,
         "path": path_str,
-        "base": os.path.splitext(file_name)[0],
+        "base": name_parts[0],
+        "extn": name_parts[1].lstrip("."),
         "dirn": os.path.basename(os.path.dirname(path_str)),
         "size": stat_size,
         "hash": md5sum(path_str) if calc_hash else None,
