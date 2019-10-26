@@ -26,3 +26,10 @@ from .fileutils import (
     get_file_info,
     scan_dir,
 )
+
+from .strutils import (
+    str_after_first,
+    str_after_last,
+    str_before_first,
+    str_before_last,
+)
