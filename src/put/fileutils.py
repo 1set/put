@@ -8,29 +8,30 @@ import errno
 import os
 
 
-def is_file_exist(*args):
+def join_path(*args):
+    """Join two or more or less paths"""
+    return os.path.join(*args)
+
+
+def is_file_exist(path):
     """Whether the file exists"""
-    path = join_path(*args)
     path_info = Path(path)
     return path_info.is_file()
 
 
-def is_dir_exist(*args):
+def is_dir_exist(path):
     """Whether the directory exists"""
-    path = join_path(*args)
     path_info = Path(path)
     return path_info.is_dir()
 
 
-def is_dir_empty(*args):
+def is_dir_empty(path):
     """Whether the directory is empty"""
-    path = join_path(*args)
     return is_dir_exist(path) and not os.listdir(path)
 
 
-def make_dir(*args):
+def make_dir(path):
     """Create a directory with named path if not exists"""
-    path = join_path(*args)
     try:
         os.makedirs(path)
     except OSError as ex:
@@ -39,15 +40,9 @@ def make_dir(*args):
     return path
 
 
-def remove_dir(*args):
+def remove_dir(path):
     """Remove a directory whether it is empty or not"""
-    path = join_path(*args)
     rmtree(path, ignore_errors=True)
-
-
-def join_path(*args):
-    """Join two or more or less paths"""
-    return os.path.join(*args)
 
 
 def _json_serial(obj):
