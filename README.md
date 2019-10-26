@@ -1,4 +1,4 @@
-# put℠ - **P**ython **U**tilities & **T**ools
+# put℠ - [![GitHub Action workflow](https://github.com/an63/put/workflows/build/badge.svg)](https://github.com/an63/put/actions?workflow=build)
 
 [![PyPI - Python Version](https://img.shields.io/pypi/pyversions/put?style=flat-square)](https://pypi.org/project/put/)
 [![PyPI](https://img.shields.io/pypi/v/put?style=flat-square)](https://pypi.org/project/put/)
@@ -30,4 +30,4 @@ the following helper methods are included:
 
 -   **file** utilities:
     -   directory: is_dir_exist, is_dir_empty, make_dir, remove_dir, scan_dir, join_path
-    -   file: is_file_exist, save_json, load_json, load_lines, get_file_info
+    -   file: is_file_exist, is_file_empty, save_json, load_json, load_lines, get_file_info
