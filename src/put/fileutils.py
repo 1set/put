@@ -30,6 +30,11 @@ def is_dir_empty(path):
     return is_dir_exist(path) and not os.listdir(path)
 
 
+def is_file_empty(path):
+    """Whether the file is empty"""
+    return is_file_exist(path) and os.stat(path).st_size == 0
+
+
 def make_dir(path):
     """Create a directory with named path if not exists"""
     try:
