@@ -1,5 +1,6 @@
-# put℠ - [![GitHub Action workflow](https://github.com/an63/put/workflows/build/badge.svg)](https://github.com/an63/put/actions?workflow=build)
+# put℠
 
+[![GitHub Action workflow](https://github.com/an63/put/workflows/build/badge.svg)](https://github.com/an63/put/actions?workflow=build)
 [![PyPI - Python Version](https://img.shields.io/pypi/pyversions/put?style=flat-square)](https://pypi.org/project/put/)
 [![PyPI](https://img.shields.io/pypi/v/put?style=flat-square)](https://pypi.org/project/put/)
 [![Project License](https://img.shields.io/pypi/l/put?style=flat-square)](https://github.com/an63/put/blob/master/LICENSE)

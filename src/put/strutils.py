@@ -1,5 +1,5 @@
 def str_before_first(src, sub):
-    """Return a substring which starts at the begin and continues to the first occurrence of the substring sub."""
+    """Return a substring from the beginning of the string to the first occurrence of the substring sub."""
     idx = src.find(sub)
     if idx < 0:
         return ""
@@ -7,7 +7,7 @@ def str_before_first(src, sub):
 
 
 def str_after_first(src, sub):
-    """Return a substring which starts after the first occurrence of the substring sub and continues to the end."""
+    """Return a substring from the first occurrence of the substring sub to the end of the string."""
     idx = src.find(sub)
     if idx < 0:
         return ""
@@ -15,7 +15,7 @@ def str_after_first(src, sub):
 
 
 def str_before_last(src, sub):
-    """Return a substring which starts at the begin and continues to the last occurrence of the substring sub."""
+    """Return a substring from the beginning of the string to the last occurrence of the substring sub."""
     idx = src.rfind(sub)
     if idx < 0:
         return ""
@@ -23,7 +23,7 @@ def str_before_last(src, sub):
 
 
 def str_after_last(src, sub):
-    """Return a substring which starts after the last occurrence of the substring sub and continues to the end."""
+    """Return a substring from the last occurrence of the substring sub to the end of the string."""
     idx = src.rfind(sub)
     if idx < 0:
         return ""

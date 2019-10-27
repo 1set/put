@@ -1,6 +1,5 @@
 # -*- coding: UTF-8 -*-
 
-import pytest
 from put.strutils import (
     str_after_first,
     str_after_last,
