@@ -7,13 +7,44 @@ from put.strutils import (
     str_before_last,
 )
 
+str_test_cases = [{
+    "source": "hello.py",
+    "substr": ".",
+    "after_first": "py",
+    "after_last": "py",
+    "before_first": "hello",
+    "before_last": "hello",
+}, {
+    "source": "hello.py",
+    "substr": "~",
+    "after_first": "",
+    "after_last": "",
+    "before_first": "",
+    "before_last": "",
+}, {
+    "source": "hello.py",
+    "substr": "",
+    "after_first": "hello.py",
+    "after_last": "",
+    "before_first": "",
+    "before_last": "hello.py",
+}, {
+    "source": "abc.def.ghi",
+    "substr": ".",
+    "after_first": "def.ghi",
+    "after_last": "ghi",
+    "before_first": "abc",
+    "before_last": "abc.def",
+}, {
+    "source": "abc.def.ghi",
+    "substr": "^",
+    "after_first": "",
+    "after_last": "",
+    "before_first": "",
+    "before_last": "",
+}]
+
 string_test_cases = [
-    ("hello.py", "."),
-    ("hello.py", "-"),
-    ("hello.py", ""),
-    ("abc.def.ghi", "."),
-    ("abc.def.ghi", "-"),
-    ("abc.def.ghi", ""),
     ("123123123", "1"),
     ("123123123", "4"),
     ("123123123", "123"),
@@ -24,15 +55,6 @@ string_test_cases = [
     ("A", "A"),
     ("", ""),
 ]
-
-str_test_cases = [{
-    "source": "hello.py",
-    "substr": ".",
-    "after_first": "py",
-    "after_last": "py",
-    "before_first": "hello",
-    "before_last": "hello",
-}]
 
 
 def test_str_after_first():
