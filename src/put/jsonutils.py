@@ -1,4 +1,4 @@
-from json import dump, load
+from json import dumps, load
 from datetime import date, datetime
 from .fileutils import is_file_exist
 
@@ -10,20 +10,23 @@ def _json_serial(obj):
     raise TypeError("Type %s not serializable" % type(obj))
 
 
+def dump_json(data, pretty_print=True):
+    if pretty_print:
+        return dumps(
+            data,
+            ensure_ascii=False,
+            sort_keys=True,
+            indent=4,
+            default=_json_serial,
+        )
+    else:
+        return dumps(data, ensure_ascii=False, default=_json_serial)
+
+
 def save_json(file_path, data, pretty_print=True):
     """Serialize data and save as JSON file"""
     with open(file_path, "w", encoding="utf8") as outfile:
-        if pretty_print:
-            dump(
-                data,
-                outfile,
-                ensure_ascii=False,
-                sort_keys=True,
-                indent=4,
-                default=_json_serial,
-            )
-        else:
-            dump(data, outfile, ensure_ascii=False, default=_json_serial)
+        outfile.write(dump_json(data, pretty_print))
 
 
 def load_json(file_path):
