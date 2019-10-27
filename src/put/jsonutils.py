@@ -19,8 +19,7 @@ def dump_json(data, pretty_print=True):
             indent=4,
             default=_json_serial,
         )
-    else:
-        return dumps(data, ensure_ascii=False, default=_json_serial)
+    return dumps(data, ensure_ascii=False, default=_json_serial)
 
 
 def save_json(file_path, data, pretty_print=True):
