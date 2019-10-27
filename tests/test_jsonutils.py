@@ -12,12 +12,12 @@ from tempfile import TemporaryDirectory
 
 
 def test_dump_json():
-    sample1 = {"time": datetime.now(), "integer": 123, "float": 456.789, "bool": True}
-    json1 = dump_json(sample1, pretty_print=False)
-    assert json1.startswith('{"bool": true, "float": 456.789, "integer": 123, "time": ')
-    sample2 = {"time": datetime.now(), "integer": 123, "float": 456.789, "bool": True, "error": TemporaryDirectory}
+    sample = {"time": datetime(year=2019, month=10, day=27, hour=12, minute=34, second=56), "integer": 123, "float": 456.789, "bool": True}
+    json1 = dump_json(sample, pretty_print=False)
+    assert json1 == '{"bool": true, "float": 456.789, "integer": 123, "time": "2019-10-27T12:34:56"}'
+    sample["error"] = TemporaryDirectory
     with pytest.raises(TypeError):
-        json2 = dump_json(sample2, pretty_print=False)
+        json2 = dump_json(sample, pretty_print=False)
 
 
 def test_save_json():
