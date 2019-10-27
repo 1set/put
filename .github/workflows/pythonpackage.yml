@@ -60,8 +60,8 @@ jobs:
         curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > cc-test-reporter
         chmod +x ./cc-test-reporter
         ./cc-test-reporter before-build
-        pip install coverage
-        coverage report -m
+        # pip install coverage
+        # coverage report -m
         ./cc-test-reporter format-coverage -t coverage.py
         ./cc-test-reporter upload-coverage
       env:
