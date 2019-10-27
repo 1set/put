@@ -35,3 +35,6 @@ the following helper methods are included:
 
 -   **string** utilities:
     -   substring: str_after_first, str_after_last, str_before_first, str_before_last
+
+-   **json** utilities:
+    -   dump_json, save_json, load_json
