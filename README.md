@@ -32,3 +32,6 @@ the following helper methods are included:
 -   **file** utilities:
     -   directory: is_dir_exist, is_dir_empty, make_dir, remove_dir, scan_dir, join_path
     -   file: is_file_exist, is_file_empty, save_json, load_json, load_lines, get_file_info
+
+-   **string** utilities:
+    -   substring: str_after_first, str_after_last, str_before_first, str_before_last
