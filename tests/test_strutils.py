@@ -42,19 +42,84 @@ str_test_cases = [{
     "after_last": "",
     "before_first": "",
     "before_last": "",
+}, {
+    "source": "abc.def.ghi",
+    "substr": "def",
+    "after_first": ".ghi",
+    "after_last": ".ghi",
+    "before_first": "abc.",
+    "before_last": "abc.",
+}, {
+    "source": "123123123",
+    "substr": "124",
+    "after_first": "",
+    "after_last": "",
+    "before_first": "",
+    "before_last": "",
+}, {
+    "source": "123123123",
+    "substr": "1",
+    "after_first": "23123123",
+    "after_last": "23",
+    "before_first": "",
+    "before_last": "123123",
+}, {
+    "source": "123123123",
+    "substr": "124",
+    "after_first": "",
+    "after_last": "",
+    "before_first": "",
+    "before_last": "",
+}, {
+    "source": "123123123",
+    "substr": "123",
+    "after_first": "123123",
+    "after_last": "",
+    "before_first": "",
+    "before_last": "123123",
+}, {
+    "source": "1111111111",
+    "substr": "1",
+    "after_first": "111111111",
+    "after_last": "",
+    "before_first": "",
+    "before_last": "111111111",
+}, {
+    "source": "1111111111",
+    "substr": "111",
+    "after_first": "1111111",
+    "after_last": "",
+    "before_first": "",
+    "before_last": "1111111",
+}, {
+    "source": "1111111111",
+    "substr": "1111111111",
+    "after_first": "",
+    "after_last": "",
+    "before_first": "",
+    "before_last": "",
+}, {
+    "source": "1111111111",
+    "substr": "11111111111",
+    "after_first": "",
+    "after_last": "",
+    "before_first": "",
+    "before_last": "",
+}, {
+    "source": "A",
+    "substr": "A",
+    "after_first": "",
+    "after_last": "",
+    "before_first": "",
+    "before_last": "",
+}, {
+    "source": "",
+    "substr": "",
+    "after_first": "",
+    "after_last": "",
+    "before_first": "",
+    "before_last": "",
 }]
-
-string_test_cases = [
-    ("123123123", "1"),
-    ("123123123", "4"),
-    ("123123123", "123"),
-    ("123123123", ""),
-    ("abcabcabc", "abc"),
-    ("1abc2abc3abc4", "abc"),
-    ("abc", "abc"),
-    ("A", "A"),
-    ("", ""),
-]
 
 
 def test_str_after_first():
