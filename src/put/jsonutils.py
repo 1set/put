@@ -3,20 +3,20 @@ from datetime import date, datetime
 from sys import version_info
 from .fileutils import is_file_exist
 
-support_dataclass = False
+SUPPORT_DATACLASS = False
 if version_info[0] == 3 and version_info[1] >= 8:
     from dataclasses import is_dataclass, asdict
-    support_dataclass = True
+    SUPPORT_DATACLASS = True
 
 
 class EnhancedJSONEncoder(JSONEncoder):
 
-    def default(self, obj):
-        if isinstance(obj, (datetime, date)):
-            return obj.isoformat()
-        if support_dataclass and is_dataclass(obj):
-            return asdict(obj)
-        return super().default(obj)
+    def default(self, o):
+        if isinstance(o, (datetime, date)):
+            return o.isoformat()
+        if SUPPORT_DATACLASS and is_dataclass(o):
+            return asdict(o)
+        return super().default(o)
 
 
 def dump_json(obj, pretty_print=True):
