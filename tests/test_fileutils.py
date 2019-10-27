@@ -9,8 +9,6 @@ from put.fileutils import (
     make_dir,
     remove_dir,
     join_path,
-    save_json,
-    load_json,
     load_lines,
     get_file_info,
     scan_dir,
@@ -91,25 +89,6 @@ def test_join_path():
     assert join_path("a", "b", "c") == "a/b/c"
     with pytest.raises(TypeError):
         assert join_path()
-
-
-def test_save_json():
-    sample = {"time": datetime.now(), "integer": 123, "float": 456.789, "bool": True}
-    with TemporaryDirectory() as tmp_dir:
-        assert save_json(join_path(tmp_dir, "py-put-test-file.json"), sample) is None
-        assert save_json(join_path(tmp_dir, "py-put-test-file2.json"), sample, False) is None
-    with pytest.raises(IsADirectoryError):
-        assert save_json("tests", sample)
-
-
-def test_load_json():
-    sample = load_json("tests/resources/sample.json")
-    assert sample is not None
-    assert sample["integer"] == 123
-    assert sample["bool"]
-    assert load_json("__read_a_file_not_exists__") is None
-    with pytest.raises(UnicodeDecodeError):
-        assert load_json("tests/resources/sample.zip")
 
 
 def test_load_lines():

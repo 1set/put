@@ -20,11 +20,14 @@ from .fileutils import (
     make_dir,
     remove_dir,
     join_path,
-    save_json,
-    load_json,
     load_lines,
     get_file_info,
     scan_dir,
+)
+
+from .jsonutils import (
+    save_json,
+    load_json,
 )
 
 from .strutils import (
