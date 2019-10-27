@@ -1,7 +1,12 @@
 from json import dumps, load, JSONEncoder
 from datetime import date, datetime
+from sys import version_info
 from .fileutils import is_file_exist
-from dataclasses import is_dataclass, asdict
+
+support_dataclass = False
+if version_info[0] == 3 and version_info[1] >= 8:
+    from dataclasses import is_dataclass, asdict
+    support_dataclass = True
 
 
 class EnhancedJSONEncoder(JSONEncoder):
@@ -9,7 +14,7 @@ class EnhancedJSONEncoder(JSONEncoder):
     def default(self, obj):
         if isinstance(obj, (datetime, date)):
             return obj.isoformat()
-        if is_dataclass(obj):
+        if support_dataclass and is_dataclass(obj):
             return asdict(obj)
         return super().default(obj)
 
