@@ -28,23 +28,30 @@ def test_dump_json():
 
 def test_dump_json_with_dataclass():
     if not SUPPORT_DATACLASS:
-        pytest.skip()
+        pytest.skip("dataclass is only supported in Python 3.7 and later")
 
-    from dataclasses import dataclass
+    context = {}
+    exec(
+        """
+from put.jsonutils import dump_json
+from dataclasses import dataclass
+from datetime import datetime
 
-    @dataclass
-    class SampleClass:
-        Flag: bool
-        Rate: float
-        Count: int
-        Time: datetime
+@dataclass
+class SampleClass:
+    Flag: bool
+    Rate: float
+    Count: int
+    Time: datetime
 
-    sample = SampleClass(Flag=True,
-                         Rate=0.233333,
-                         Count=8,
-                         Time=datetime(year=2019, month=10, day=28, hour=12, minute=34, second=56))
-    json = dump_json(sample, pretty_print=False)
-    assert json == '{"Count": 8, "Flag": true, "Rate": 0.233333, "Time": "2019-10-28T12:34:56"}'
+sample = SampleClass(Flag=True,
+                    Rate=0.233333,
+                    Count=8,
+                    Time=datetime(year=2019, month=10, day=28, hour=12, minute=34, second=56))
+json = dump_json(sample, pretty_print=False)
+    """, context)
+
+    assert context['json'] == '{"Count": 8, "Flag": true, "Rate": 0.233333, "Time": "2019-10-28T12:34:56"}'
 
 
 def test_save_json():
