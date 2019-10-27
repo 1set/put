@@ -3,10 +3,9 @@ from datetime import date, datetime
 from sys import version_info
 from .fileutils import is_file_exist
 
-SUPPORT_DATACLASS = False
-if version_info[0] == 3 and version_info[1] >= 8:
+SUPPORT_DATACLASS = version_info[0] == 3 and version_info[1] >= 7
+if SUPPORT_DATACLASS:
     from dataclasses import is_dataclass, asdict
-    SUPPORT_DATACLASS = True
 
 
 class EnhancedJSONEncoder(JSONEncoder):

@@ -2,6 +2,7 @@
 
 import pytest
 from put.jsonutils import (
+    SUPPORT_DATACLASS,
     dump_json,
     save_json,
     load_json,
@@ -23,6 +24,27 @@ def test_dump_json():
     sample["error"] = TemporaryDirectory
     with pytest.raises(TypeError):
         dump_json(sample, pretty_print=False)
+
+
+def test_dump_json_with_dataclass():
+    if not SUPPORT_DATACLASS:
+        pytest.skip()
+
+    from dataclasses import dataclass
+
+    @dataclass
+    class SampleClass:
+        Flag: bool
+        Rate: float
+        Count: int
+        Time: datetime
+
+    sample = SampleClass(Flag=True,
+                         Rate=0.233333,
+                         Count=8,
+                         Time=datetime(year=2019, month=10, day=28, hour=12, minute=34, second=56))
+    json = dump_json(sample, pretty_print=False)
+    assert json == '{"Count": 8, "Flag": true, "Rate": 0.233333, "Time": "2019-10-28T12:34:56"}'
 
 
 def test_save_json():
