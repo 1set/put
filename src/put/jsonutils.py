@@ -10,7 +10,7 @@ if SUPPORT_DATACLASS:
 
 class EnhancedJSONEncoder(JSONEncoder):
 
-    def default(self, o):
+    def default(self, o):  # pylint: disable=E0202
         if isinstance(o, (datetime, date)):
             return o.isoformat()
         if SUPPORT_DATACLASS and is_dataclass(o):
