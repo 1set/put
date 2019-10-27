@@ -13,7 +13,6 @@ from put.fileutils import (
     get_file_info,
     scan_dir,
 )
-from datetime import datetime
 from tempfile import TemporaryDirectory
 
 
