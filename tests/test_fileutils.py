@@ -3,6 +3,7 @@
 import pytest
 from put.fileutils import (
     is_file_exist,
+    is_file_empty,
     is_dir_exist,
     is_dir_empty,
     make_dir,
@@ -24,6 +25,15 @@ def test_is_file_exist():
     assert not is_file_exist("tests")
     assert not is_file_exist(join_path("tests", "resources"))
     assert is_file_exist(join_path("tests", "resources", "sample.json"))
+
+
+def test_is_file_empty():
+    assert not is_file_empty("LICENSE")
+    assert not is_file_exist("__check_a_file_not_exists__")
+    assert not is_file_empty("tests")
+    assert not is_file_empty(join_path("tests", "resources"))
+    assert not is_file_empty(join_path("tests", "resources", "sample.json"))
+    assert is_file_empty(join_path("tests", "resources", "empty.file"))
 
 
 def test_is_dir_exist():
