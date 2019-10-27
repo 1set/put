@@ -26,6 +26,7 @@ from .fileutils import (
 )
 
 from .jsonutils import (
+    dump_json,
     save_json,
     load_json,
 )

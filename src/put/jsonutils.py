@@ -10,16 +10,11 @@ def _json_serial(obj):
     raise TypeError("Type %s not serializable" % type(obj))
 
 
-def dump_json(data, pretty_print=True):
+def dump_json(obj, pretty_print=True, ignore_error=False):
+    """Serialize obj to a JSON formatted string"""
     if pretty_print:
-        return dumps(
-            data,
-            ensure_ascii=False,
-            sort_keys=True,
-            indent=4,
-            default=_json_serial,
-        )
-    return dumps(data, ensure_ascii=False, default=_json_serial)
+        return dumps(obj, indent=4, ensure_ascii=False, sort_keys=True, skipkeys=ignore_error, default=_json_serial)
+    return dumps(obj, ensure_ascii=False, sort_keys=True, skipkeys=ignore_error, default=_json_serial)
 
 
 def save_json(file_path, data, pretty_print=True):
