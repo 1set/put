@@ -11,7 +11,7 @@ def str_after_first(src, sub):
     idx = src.find(sub)
     if idx < 0:
         return ""
-    return src[idx+len(sub):]
+    return src[idx + len(sub):]
 
 
 def str_before_last(src, sub):
@@ -27,4 +27,4 @@ def str_after_last(src, sub):
     idx = src.rfind(sub)
     if idx < 0:
         return ""
-    return src[idx+len(sub):]
+    return src[idx + len(sub):]
