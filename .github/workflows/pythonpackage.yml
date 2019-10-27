@@ -53,3 +53,12 @@ jobs:
         token: ${{secrets.codecov_token}}
         file: ./coverage.xml
       if: startsWith(matrix.vm-os, 'ubuntu')
+
+    - name: Upload report to DeepSource
+      shell: bash
+      run: |
+        curl https://deepsource.io/cli | sh
+        ./bin/deepsource report --analyzer test-coverage --key python --value-file ./coverage.xml
+      env:
+        DEEPSOURCE_DSN: ${{ secrets.deepsource_dsn }}
+      if: startsWith(matrix.vm-os, 'ubuntu')
