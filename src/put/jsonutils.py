@@ -5,6 +5,7 @@ from dataclasses import is_dataclass, asdict
 
 
 class EnhancedJSONEncoder(JSONEncoder):
+
     def default(self, obj):
         if isinstance(obj, (datetime, date)):
             return obj.isoformat()
