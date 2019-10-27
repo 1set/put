@@ -18,8 +18,6 @@ def test_dump_json():
     sample2 = {"time": datetime.now(), "integer": 123, "float": 456.789, "bool": True, "error": TemporaryDirectory}
     with pytest.raises(TypeError):
         json2 = dump_json(sample2, pretty_print=False)
-    # json2 = dump_json(sample2, pretty_print=False, ignore_error=True) 
-    # assert json2.startswith('{"bool": true, "float": 456.789, "integer": 123, "time": ')
 
 
 def test_save_json():
