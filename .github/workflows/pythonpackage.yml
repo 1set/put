@@ -54,14 +54,21 @@ jobs:
         file: ./coverage.xml
       if: startsWith(matrix.vm-os, 'ubuntu')
 
+    - name: Upload report to Codacy
+      shell: bash
+      run: |
+        pip install codacy-coverage
+        python-codacy-coverage -r coverage.xml
+      env:
+        CODACY_PROJECT_TOKEN: ${{ secrets. codacy_token }}
+      if: startsWith(matrix.vm-os, 'ubuntu')
+
     - name: Upload report to Code Climate
       shell: bash
       run: |
         curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > cc-test-reporter
         chmod +x ./cc-test-reporter
         ./cc-test-reporter before-build
-        # pip install coverage
-        # coverage report -m
         ./cc-test-reporter format-coverage -t coverage.py
         ./cc-test-reporter upload-coverage
       env:
